@@ -8,12 +8,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
-import { Container } from 'react-bootstrap';
 
 import { Header, Footer } from './components';
 
 import '../../styles/reset.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import styled from 'styled-components';
+
+const Styles = {
+  PageContainer: styled.div`
+    min-height: 100vh;
+  `,
+};
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -27,13 +33,11 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <>
+    <Styles.PageContainer className="bg-dark">
       <Header siteTitle={data.site.siteMetadata.title} />
-      <Container>
-        <main>{children}</main>
-        <Footer />
-      </Container>
-    </>
+      <main className="bg-light">{children}</main>
+      <Footer />
+    </Styles.PageContainer>
   )
 }
 
