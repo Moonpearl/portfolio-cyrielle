@@ -1,6 +1,13 @@
 import React from 'react';
-import { Layout, SEO, MarkdownTextContainer, Section } from '../components';
+import { Layout, SEO, MarkdownTextContainer, Section, BackgroundCarousel } from '../components';
 import { Jumbotron, Container } from 'react-bootstrap';
+import styled from 'styled-components';
+
+const Styles = {
+  TransparentJumbotron: styled(Jumbotron)`
+    opacity: .9;
+  `,
+}
 
 const IndexPage = ({ data }) => {
   const { datoCmsAboutPage: about } = data;
@@ -8,11 +15,13 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" />
-      <Container>
-        <Jumbotron>
-          <MarkdownTextContainer textNode={about.bioNode} />
-        </Jumbotron>
-      </Container>
+      <BackgroundCarousel pictures={about.carousel.map(picture => picture.url)}>
+        <Container>
+          <Styles.TransparentJumbotron>
+            <MarkdownTextContainer textNode={about.bioNode} />
+          </Styles.TransparentJumbotron>
+        </Container>
+      </BackgroundCarousel>
       {about.sections.map(
         (sectionNode, index) => <Section key={index} {...sectionNode} inverted={index % 2 === 0} />
       )}
@@ -25,6 +34,9 @@ export default IndexPage;
 export const query = graphql`
   query HomeQuery {
     datoCmsAboutPage {
+      carousel {
+        url
+      }
       sections {
         title
         slug
