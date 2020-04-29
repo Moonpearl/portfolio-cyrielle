@@ -10,8 +10,6 @@ const makeMediaQuery = (property, size) =>
   `(${property}: ${size})`
 ;
 
-export const MIN_WIDTH = Object.fromEntries(
-  Object.entries(BREAKPOINTS).map(
-    ([sizeName, size]) => [sizeName, makeMediaQuery('min-width', size)]
-  )
+export const MIN_WIDTH = Object.entries(BREAKPOINTS).reduce(
+  (MIN_WIDTH, [sizeName, size]) => (MIN_WIDTH[sizeName] = makeMediaQuery('min-width', size), MIN_WIDTH), {}
 );
