@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, SEO, MarkdownTextContainer } from '../components';
+import { Layout, SEO, MarkdownTextContainer, Section } from '../components';
 import { Jumbotron, Container } from 'react-bootstrap';
 
 const IndexPage = ({ data }) => {
@@ -13,6 +13,9 @@ const IndexPage = ({ data }) => {
           <MarkdownTextContainer textNode={about.bioNode} />
         </Jumbotron>
       </Container>
+      {about.sections.map(
+        (sectionNode, index) => <Section key={index} {...sectionNode} inverted={index % 2 === 0} />
+      )}
     </Layout>
   );
 }
@@ -22,27 +25,31 @@ export default IndexPage;
 export const query = graphql`
   query HomeQuery {
     datoCmsAboutPage {
-      bioNode {
-        childMarkdownRemark {
-          html
-        }
-      }
       sections {
         title
         slug
         backgroundColor {
-          rgb
+          red
+          blue
+          green
         }
         backgroundImage {
           url
         }
         textColor {
-          rgb
+          blue
+          green
+          red
         }
         descriptionNode {
           childMarkdownRemark {
             html
           }
+        }
+      }
+      bioNode {
+        childMarkdownRemark {
+          html
         }
       }
     }

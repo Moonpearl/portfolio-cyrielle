@@ -1,8 +1,15 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import styled from 'styled-components';
+
+const Styles = {
+  FooterContainer: styled.footer`
+    padding: 4em;
+  `,
+};
 
 const Footer = () =>
-  <footer className="text-light">
+  <Styles.FooterContainer className="text-light text-center">
     <Container>
       © {new Date().getFullYear()}, Built with
       {` `}
@@ -12,7 +19,7 @@ const Footer = () =>
       {` `}
       <a href="https://www.datocms.com/">DatoCMS</a>
     </Container>
-  </footer>
+  </Styles.FooterContainer>
 ;
 
 export default Footer;
