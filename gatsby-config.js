@@ -62,5 +62,22 @@ module.exports = {
         // Add any options here
       },
     },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        // CommonMark mode (default: true)
+        commonmark: true,
+        // Footnotes mode (default: true)
+        footnotes: true,
+        // Pedantic mode (default: true)
+        pedantic: true,
+        // GitHub Flavored Markdown mode (default: true)
+        gfm: true,
+        // Calculate timeToRead in minutes using word count, sanitized html, and raw Markdown content. (default: wordCount / 265)
+        timeToRead: (wordCount, html, rawMD) => wordCount / 42,
+        // Plugins configs
+        plugins: [],
+      },
+    },
   ],
 }
