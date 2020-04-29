@@ -40,7 +40,7 @@ const Styles = {
         ${ ({ color, inverted }) => css`
           linear-gradient(
             ${inverted ? 'to right' : 'to left'},
-            ${makeColor(color)} 45%,
+            ${makeColor(color, .9)} 45%,
             ${makeColor(color, 0)} 65%
           ),
         `}
