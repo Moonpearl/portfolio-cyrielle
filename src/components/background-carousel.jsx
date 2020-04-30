@@ -25,7 +25,6 @@ const Styles = {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: white;
     animation: animatedOverlay 10s linear infinite;
   `,
 };
@@ -59,7 +58,7 @@ export default class BackgroundCarousel extends Component
       <Styles.BackgroundImageContainer
         imageUrl={pictures[currentPicture]}
       >
-        <Styles.Overlay />
+        <Styles.Overlay className="bg-dark" />
         <Styles.InnerContainer>
           {children}
         </Styles.InnerContainer>

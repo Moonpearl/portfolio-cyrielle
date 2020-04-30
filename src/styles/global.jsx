@@ -22,10 +22,10 @@ export const GlobalStyle = createGlobalStyle`
       opacity: 100%;
     }
     20% {
-      opacity: 0%;
+      opacity: 66%;
     }
     80% {
-      opacity: 0%;
+      opacity: 66%;
     }
     100% {
       opacity: 100%;
