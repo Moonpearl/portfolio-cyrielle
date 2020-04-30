@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Moonpearl <moonpearl12@gmail.com>",
   "dependencies": {
+    "@n8tb1t/use-scroll-position": "^1.0.43",
     "babel-plugin-styled-components": "^1.10.7",
     "bootstrap": "^4.4.1",
     "gatsby": "^2.21.0",
