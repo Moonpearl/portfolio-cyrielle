@@ -14,6 +14,7 @@ import { Header, Footer } from './components';
 import '../../styles/reset.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
+import { GlobalStyle } from '../../styles/global';
 
 const Styles = {
   PageContainer: styled.div`
@@ -34,6 +35,7 @@ const Layout = ({ children }) => {
 
   return (
     <Styles.PageContainer className="bg-dark">
+      <GlobalStyle />
       <Header siteTitle={data.site.siteMetadata.title} />
       <main className="bg-light">{children}</main>
       <Footer />

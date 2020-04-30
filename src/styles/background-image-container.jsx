@@ -7,7 +7,7 @@ const BackgroundImageContainer = styled.div`
     url(${ ({ imageUrl }) => imageUrl})
   ;
   background-size: cover;
-  background-repeat: none;
+  background-repeat: no-repeat;
   background-position: center;
   ${ ({ attachmentFixed }) => attachmentFixed && css`
     background-attachment: fixed;
