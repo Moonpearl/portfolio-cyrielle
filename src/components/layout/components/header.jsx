@@ -1,31 +1,33 @@
 import React from 'react';
-import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { Container } from 'react-bootstrap';
+import styled, { css } from 'styled-components';
+import { Container, Navbar, Nav, Form, Button, FormControl } from 'react-bootstrap';
+import { TransparentNavbar } from '../../../styles';
+import { Link } from 'gatsby';
 
 const Styles = {
   Header: styled.header`
-    color: white;
-    background-color: rebeccapurple;
-    padding: 1.5rem;
-
-    & a {
-      color: inherit;
-      text-decoration: none;
-    }
   `,
 };
 
+const NavLink = ({ href, children }) => <Link to={href} className="nav-link">{children}</Link>;
+
 const Header = ({ siteTitle }) =>
   <Styles.Header>
-    <Container>
-      <h1>
-        <Link to="/">
+    <TransparentNavbar bg="dark" variant="dark" expand="md">
+      <Link to="/">
+        <Navbar.Brand>
           {siteTitle}
-        </Link>
-      </h1>
-    </Container>
+        </Navbar.Brand>
+      </Link>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <NavLink href="/news">News</NavLink>
+          <NavLink href="/gallery">Gallery</NavLink>
+        </Nav>
+      </Navbar.Collapse>
+    </TransparentNavbar>
   </Styles.Header>
 ;
 
