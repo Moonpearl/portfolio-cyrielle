@@ -33,15 +33,15 @@ const Styles = {
 export default class BackgroundCarousel extends Component
 {
   state = {
-    currentPicture: 0,
+    currentPicture: -1,
   }
 
   componentDidMount = () => {
     this.nextPicture();
   }
 
-  nextPicture = async () => {
-    await setTimeout(this.nextPicture, 10000);
+  nextPicture = () => {
+    setTimeout(this.nextPicture, 10000);
 
     const { pictures } = this.props;
     const { currentPicture } = this.state;
