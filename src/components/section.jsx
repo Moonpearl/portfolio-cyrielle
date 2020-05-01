@@ -6,6 +6,7 @@ import { Container } from 'react-bootstrap';
 import styled, { css } from 'styled-components';
 import { MIN_WIDTH } from '../styles/variables';
 import { makeColor } from '../utils';
+import ScrollAnimation from 'react-animate-on-scroll';
 
 const Styles = {
   TextContainer: styled.div`
@@ -62,12 +63,18 @@ const Section = ({
     attachmentFixed
   >
     <Container>
-      <Styles.TextAlignContainer inverted={inverted}>
-        <Styles.TextContainer textColor={makeColor(textColor)}>
-          <h3>{title}</h3>
-          <MarkdownTextContainer textNode={descriptionNode} />
-        </Styles.TextContainer>
-      </Styles.TextAlignContainer>
+      <ScrollAnimation
+        // animateIn={`fadeIn${inverted ? 'Left' : 'Right'}`}
+        animateIn={`fadeIn`}
+        animateOnce={true}
+      >
+        <Styles.TextAlignContainer inverted={inverted}>
+          <Styles.TextContainer textColor={makeColor(textColor)}>
+            <h3>{title}</h3>
+            <MarkdownTextContainer textNode={descriptionNode} />
+          </Styles.TextContainer>
+        </Styles.TextAlignContainer>
+      </ScrollAnimation>
     </Container>
   </Styles.BackgroundImageContainer>
 ;

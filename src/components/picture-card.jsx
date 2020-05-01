@@ -4,6 +4,7 @@ import { Card, Button } from 'react-bootstrap';
 import styled, { css } from 'styled-components';
 import { makeColor } from '../utils';
 import { FaRegEye } from 'react-icons/fa';
+import ScrollAnimation from 'react-animate-on-scroll';
 
 const Styles = {
   Card: styled(Card)`
@@ -42,6 +43,10 @@ const PictureCard = ({
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
     >
+      <ScrollAnimation
+        animateIn={`fadeIn`}
+        animateOnce={true}
+      >
       <ReactFlipCard isFlipped={isFlipped}>
         <Styles.Card backgroundImage={image.fluid.src} />
         <Styles.Card
@@ -64,8 +69,9 @@ const PictureCard = ({
           </Card.Footer>
         </Styles.Card>
       </ReactFlipCard>
+      </ScrollAnimation>
     </div>
   );
 }
 
-export default PictureCard
+export default PictureCard;
