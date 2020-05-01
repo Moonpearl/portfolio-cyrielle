@@ -38,6 +38,7 @@ const PictureCard = ({
 
   return (
     <div
+      onClick={() => setIsFlipped(true)}
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
     >
