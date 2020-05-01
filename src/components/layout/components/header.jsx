@@ -4,15 +4,30 @@ import styled, { css } from 'styled-components';
 import { Container, Navbar, Nav, Form, Button, FormControl } from 'react-bootstrap';
 import { TransparentNavbar } from '../../../styles';
 import { Link } from 'gatsby';
+import { Location } from '@reach/router';
 
 const Styles = {
   Header: styled.header`
   `,
 };
 
-const NavLink = ({ href, children }) => <Link to={href} className="nav-link">{children}</Link>;
+const NavLink = ({ href, active, children }) =>
+  <Link
+    to={href}
+    className={`nav-link ${active && 'active'}`}
+    active={active}
+  >
+    {children}
+  </Link>
+;
 
-const Header = ({ siteTitle }) =>
+const NavButtons = [
+  { path: '/', caption: 'Home' },
+  { path: '/news', caption: 'News' },
+  { path: '/gallery', caption: 'Gallery' },
+];
+
+const Header = ({ siteTitle, location }) =>
   <Styles.Header>
     <TransparentNavbar bg="dark" variant="dark" expand="md">
       <Link to="/">
@@ -23,8 +38,16 @@ const Header = ({ siteTitle }) =>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <NavLink href="/news">News</NavLink>
-          <NavLink href="/gallery">Gallery</NavLink>
+          {NavButtons.map(
+            (buttonData, index) =>
+              <NavLink
+                key={index}
+                href={buttonData.path}
+                active={buttonData.path === location.pathname}
+              >
+                {buttonData.caption}
+              </NavLink>
+          )}
         </Nav>
       </Navbar.Collapse>
     </TransparentNavbar>
@@ -39,4 +62,8 @@ Header.defaultProps = {
   siteTitle: ``,
 };
 
-export default Header;
+export default props =>
+  <Location>
+    {locationProps => <Header {...locationProps} {...props} />}
+  </Location>
+;
