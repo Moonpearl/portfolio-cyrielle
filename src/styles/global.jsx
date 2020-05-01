@@ -31,4 +31,9 @@ export const GlobalStyle = createGlobalStyle`
       opacity: 100%;
     }
   }
+
+  /* Fix for Bootstrap modal glitch */
+  .modal-open {
+    padding-right: 0px !important;
+  }
 `;

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import ReactFlipCard from 'react-card-flip';
-import { Card } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import styled, { css } from 'styled-components';
 import { makeColor } from '../utils';
+import { FaRegEye } from 'react-icons/fa';
 
 const Styles = {
   Card: styled(Card)`
@@ -19,8 +20,21 @@ const Styles = {
   `,
 }
 
-const PictureCard = ({ name, description, image, backgroundColor }) => {
+const PictureCard = ({
+  name,
+  description,
+  image,
+  backgroundColor,
+  setCurrentPicture,
+}) => {
   const [isFlipped, setIsFlipped] = useState(false);
+
+  const picture = {
+    name,
+    description,
+    image,
+    backgroundColor,
+  };
 
   return (
     <div
@@ -36,7 +50,17 @@ const PictureCard = ({ name, description, image, backgroundColor }) => {
         >
           <Card.Body>
             <Card.Title as="h3">{name}</Card.Title>
+            <Card.Text>
+              <small>
+                {description}
+              </small>
+            </Card.Text>
           </Card.Body>
+          <Card.Footer>
+            <Button variant="outline-light" onClick={() => setCurrentPicture(picture)}>
+              <FaRegEye />
+            </Button>
+          </Card.Footer>
         </Styles.Card>
       </ReactFlipCard>
     </div>
