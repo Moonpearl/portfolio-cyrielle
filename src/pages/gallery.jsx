@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Layout, SEO, PictureCard, MarkdownTextContainer } from '../components';
+import { Layout, SEO, PictureCard, PictureModal } from '../components';
 import { BackgroundImageContainer } from '../styles';
 import styled, { css } from 'styled-components';
-import { Container, Modal, Image } from 'react-bootstrap';
+import { Container, Modal } from 'react-bootstrap';
 import { makeColor } from '../utils';
 
 const Styles = {
@@ -64,28 +64,10 @@ const GalleryPage = ({ data }) => {
         </Styles.Grid>
       </Container>
       { currentPicture !== null &&
-        <Styles.Modal
-          show={currentPicture !== null}
+        <PictureModal
+          picture={currentPicture}
           onHide={() => setCurrentPicture(null)}
-          dialogClassName="modal-90w"
-          aria-labelledby="picture-modal-title"
-          size="xl"
-          backgroundColor={currentPicture.backgroundColor}
-          centered
-        >
-          <Modal.Header closeButton>
-            <Modal.Title id="picture-modal-title">
-              {currentPicture.name}
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body className="text-center">
-            <a href={currentPicture.image.fluid.src} target="_blank">
-              <Image fluid src={currentPicture.image.fluid.src} rounded />
-            </a>
-            <hr />
-            <MarkdownTextContainer textNode={currentPicture.descriptionNode} />
-          </Modal.Body>
-        </Styles.Modal> 
+        />
       }
     </Layout>
   );
