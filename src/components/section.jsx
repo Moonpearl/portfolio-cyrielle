@@ -64,7 +64,6 @@ const Section = ({
   >
     <Container>
       <ScrollAnimation
-        // animateIn={`fadeIn${inverted ? 'Left' : 'Right'}`}
         animateIn={`fadeIn`}
         animateOnce={true}
       >
