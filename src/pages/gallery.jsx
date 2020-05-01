@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, SEO, PictureCard } from '../components';
+import { Layout, SEO, PictureCard, MarkdownTextContainer } from '../components';
 import { BackgroundImageContainer } from '../styles';
 import styled, { css } from 'styled-components';
 import { Container, Modal, Image } from 'react-bootstrap';
@@ -78,13 +78,12 @@ const GalleryPage = ({ data }) => {
               {currentPicture.name}
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className="text-center">
             <a href={currentPicture.image.fluid.src} target="_blank">
-              <Image fluid src={currentPicture.image.fluid.src} />
+              <Image fluid src={currentPicture.image.fluid.src} rounded />
             </a>
-            <p>
-              {currentPicture.description}
-            </p>
+            <hr />
+            <MarkdownTextContainer textNode={currentPicture.descriptionNode} />
           </Modal.Body>
         </Styles.Modal> 
       }
@@ -105,7 +104,11 @@ export const query = graphql`
       edges {
         node {
           name
-          description
+          descriptionNode {
+            childMarkdownRemark {
+              html
+            }
+          }
           image {
             fluid {
               src
