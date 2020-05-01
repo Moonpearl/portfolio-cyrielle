@@ -68,6 +68,11 @@ export const query = graphql`
               src
             }
           }
+          backgroundColor {
+            red
+            green
+            blue
+          }
         }
       }
     }
