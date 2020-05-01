@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import ReactFlipCard from 'react-card-flip';
 import { Card, Button } from 'react-bootstrap';
 import styled, { css } from 'styled-components';
@@ -47,31 +48,41 @@ const PictureCard = ({
         animateIn={`fadeIn`}
         animateOnce={true}
       >
-      <ReactFlipCard isFlipped={isFlipped}>
-        <Styles.Card backgroundImage={image.fluid.src} />
-        <Styles.Card
-          text="white"
-          className="text-center"
-          backgroundColor={backgroundColor}
-        >
-          <Card.Body>
-            <Card.Title as="h3">{name}</Card.Title>
-            <Card.Text>
-              <small>
-                {description}
-              </small>
-            </Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <Button variant="outline-light" onClick={() => setCurrentPicture(picture)}>
-              <FaRegEye />
-            </Button>
-          </Card.Footer>
-        </Styles.Card>
-      </ReactFlipCard>
+        <ReactFlipCard isFlipped={isFlipped}>
+          {/* Card front */}
+          <Styles.Card backgroundImage={image.fluid.src} />
+          {/* Card back */}
+          <Styles.Card
+            text="white"
+            className="text-center"
+            backgroundColor={backgroundColor}
+          >
+            <Card.Body>
+              <Card.Title as="h3">{name}</Card.Title>
+              <Card.Text>
+                <small>
+                  {description}
+                </small>
+              </Card.Text>
+            </Card.Body>
+            <Card.Footer>
+              <Button variant="outline-light" onClick={() => setCurrentPicture(picture)}>
+                <FaRegEye />
+              </Button>
+            </Card.Footer>
+          </Styles.Card>
+        </ReactFlipCard>
       </ScrollAnimation>
     </div>
   );
+}
+
+PictureCard.propTypes = {
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  image: PropTypes.object.isRequired,
+  backgroundColor: PropTypes.object.isRequired,
+  setCurrentPicture: PropTypes.func.isRequired,
 }
 
 export default PictureCard;
