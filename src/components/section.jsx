@@ -5,10 +5,7 @@ import { BackgroundImageContainer } from '../styles';
 import { Container } from 'react-bootstrap';
 import styled, { css } from 'styled-components';
 import { MIN_WIDTH } from '../styles/variables';
-
-const makeColor = (color, alpha = 1) =>
-  `rgba(${color.red}, ${color.green}, ${color.blue}, ${alpha})`
-;
+import { makeColor } from '../utils';
 
 const Styles = {
   TextContainer: styled.div`

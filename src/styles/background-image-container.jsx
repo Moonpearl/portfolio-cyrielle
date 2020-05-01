@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 const BackgroundImageContainer = styled.div`
+  position: relative;
+  z-index: 100;
   background-image:
     url(${ ({ imageUrl }) => imageUrl})
   ;
