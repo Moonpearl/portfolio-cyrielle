@@ -47,7 +47,7 @@ const GalleryPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Gallery" />
-      <BackgroundImageContainer imageUrl={data.datoCmsAboutPage.galleryBanner.url}>
+      <BackgroundImageContainer imageUrl={data.datoCmsPage.galleryBanner.url}>
         <Styles.Overlay className="bg-dark" />
         <Styles.Header>Gallery</Styles.Header>
       </BackgroundImageContainer>
@@ -77,7 +77,7 @@ export default GalleryPage;
 
 export const query = graphql`
   query GalleryQuery {
-    datoCmsAboutPage {
+    datoCmsPage {
       galleryBanner {
         url
       }
