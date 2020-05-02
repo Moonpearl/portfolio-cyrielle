@@ -10,19 +10,19 @@ const Styles = {
 }
 
 const IndexPage = ({ data }) => {
-  const { datoCmsAboutPage: about } = data;
+  const { datoCmsPage: page } = data;
 
   return (
     <Layout>
       <SEO title="Home" />
-      <BackgroundCarousel pictures={about.carousel.map(picture => picture.url)}>
+      <BackgroundCarousel pictures={page.homeCarousel.map(picture => picture.url)}>
         <Container>
           <Styles.TransparentJumbotron>
-            <MarkdownTextContainer textNode={about.bioNode} />
+            <MarkdownTextContainer textNode={page.homeDescriptionNode} />
           </Styles.TransparentJumbotron>
         </Container>
       </BackgroundCarousel>
-      {about.sections.map(
+      {page.homeSections.map(
         (sectionNode, index) => <Section key={index} {...sectionNode} inverted={index % 2 === 0} />
       )}
     </Layout>
@@ -33,11 +33,11 @@ export default IndexPage;
 
 export const query = graphql`
   query HomeQuery {
-    datoCmsAboutPage {
-      carousel {
+    datoCmsPage {
+      homeCarousel {
         url
       }
-      sections {
+      homeSections {
         title
         slug
         backgroundColor {
@@ -59,7 +59,7 @@ export const query = graphql`
           }
         }
       }
-      bioNode {
+      homeDescriptionNode {
         childMarkdownRemark {
           html
         }

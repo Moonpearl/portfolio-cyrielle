@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import ReactFlipCard from 'react-card-flip';
 import { Card, Button } from 'react-bootstrap';
 import styled, { css } from 'styled-components';
 import { makeColor } from '../utils';
 import { FaRegEye } from 'react-icons/fa';
+import ScrollAnimation from 'react-animate-on-scroll';
+import MarkdownTextContainer from './markdown-text-container';
 
 const Styles = {
   Card: styled(Card)`
@@ -22,7 +25,7 @@ const Styles = {
 
 const PictureCard = ({
   name,
-  description,
+  descriptionNode,
   image,
   backgroundColor,
   setCurrentPicture,
@@ -31,7 +34,7 @@ const PictureCard = ({
 
   const picture = {
     name,
-    description,
+    descriptionNode,
     image,
     backgroundColor,
   };
@@ -42,30 +45,45 @@ const PictureCard = ({
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
     >
-      <ReactFlipCard isFlipped={isFlipped}>
-        <Styles.Card backgroundImage={image.fluid.src} />
-        <Styles.Card
-          text="white"
-          className="text-center"
-          backgroundColor={backgroundColor}
-        >
-          <Card.Body>
-            <Card.Title as="h3">{name}</Card.Title>
-            <Card.Text>
-              <small>
-                {description}
-              </small>
-            </Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <Button variant="outline-light" onClick={() => setCurrentPicture(picture)}>
-              <FaRegEye />
-            </Button>
-          </Card.Footer>
-        </Styles.Card>
-      </ReactFlipCard>
+      <ScrollAnimation
+        animateIn={`fadeIn`}
+        animateOnce={true}
+      >
+        <ReactFlipCard isFlipped={isFlipped}>
+          {/* Card front */}
+          <Styles.Card backgroundImage={image.fluid.src} />
+          {/* Card back */}
+          <Styles.Card
+            text="white"
+            className="text-center"
+            backgroundColor={backgroundColor}
+          >
+            <Card.Body>
+              <Card.Title as="h3">{name}</Card.Title>
+              <Card.Text>
+                <small>
+                  <MarkdownTextContainer textNode={descriptionNode} truncate />
+                </small>
+              </Card.Text>
+            </Card.Body>
+            <Card.Footer>
+              <Button variant="outline-light" onClick={() => setCurrentPicture(picture)}>
+                <FaRegEye />
+              </Button>
+            </Card.Footer>
+          </Styles.Card>
+        </ReactFlipCard>
+      </ScrollAnimation>
     </div>
   );
 }
 
-export default PictureCard
+PictureCard.propTypes = {
+  name: PropTypes.string.isRequired,
+  descriptionNode: PropTypes.object.isRequired,
+  image: PropTypes.object.isRequired,
+  backgroundColor: PropTypes.object.isRequired,
+  setCurrentPicture: PropTypes.func.isRequired,
+}
+
+export default PictureCard;

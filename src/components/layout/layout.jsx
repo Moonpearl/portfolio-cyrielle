@@ -36,7 +36,9 @@ const Layout = ({ children }) => {
   return (
     <Styles.PageContainer className="bg-dark">
       <GlobalStyle />
-      <Header siteTitle={data.site.siteMetadata.title} />
+      <Header
+        siteTitle={data.site.siteMetadata.title}
+      />
       <main className="bg-light">{children}</main>
       <Footer />
     </Styles.PageContainer>
