@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
-
-import { Layout, SEO, HeaderBanner, MarkdownTextContainer, PictureCard, PictureModal } from '../components';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
+import ImageGallery from 'react-image-gallery';
+
+import { Layout, SEO, HeaderBanner, MarkdownTextContainer, PictureCard, PictureModal } from '../components';
 import { MIN_WIDTH } from '../styles/variables';
 
 const Styles = {
@@ -19,6 +20,8 @@ const ArticlePage = ({ data }) => {
   const { datoCmsArticle: article, datoCmsPage: page } = data;
 
   const [currentPicture, setCurrentPicture] = useState(null);
+
+  console.log(data);
 
   return (
     <Layout>
@@ -38,7 +41,20 @@ const ArticlePage = ({ data }) => {
         }
         <hr />
         <MarkdownTextContainer textNode={article.contentNode} />
+        <small className="text-muted">
+          Published on {new Date(article.meta.firstPublishedAt).toLocaleString('en-EN')} 
+        </small>
         <hr />
+        {article.gallery.length > 0 &&
+          <ImageGallery
+            items={article.gallery.map(
+              item => ({
+                original: item.fluid.src,
+                thumbnail: item.fluid.src,
+              })
+            )}
+          />
+        }
       </Container>
       { currentPicture !== null &&
         <PictureModal
@@ -83,6 +99,14 @@ export const query = graphql`
           green
           blue
         }
+      }
+      gallery {
+        fluid {
+          src
+        }
+      }
+      meta {
+        firstPublishedAt
       }
     }
   }
