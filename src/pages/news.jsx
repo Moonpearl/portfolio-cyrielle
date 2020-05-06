@@ -48,7 +48,7 @@ export const query = graphql`
         url
       }
     }
-    allDatoCmsArticle {
+    allDatoCmsArticle(sort: {fields: meta___firstPublishedAt, order: DESC}) {
       edges {
         node {
           slug
