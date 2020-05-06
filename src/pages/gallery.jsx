@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Layout, SEO, PictureCard, PictureModal, HeaderBanner } from '../components';
-import styled, { css } from 'styled-components';
-import { Container, Modal } from 'react-bootstrap';
-import { makeColor } from '../utils';
+import styled from 'styled-components';
+import { Container } from 'react-bootstrap';
 
 const Styles = {
   Grid: styled.div`
@@ -11,17 +10,6 @@ const Styles = {
     gap: 2rem;
     grid-auto-flow: dense;
     padding: 2rem 0;
-  `,
-  Picture: styled.img`
-    object-fit: cover;
-  `,
-  Modal: styled(Modal)`
-    & .modal-content {
-      ${ ({ backgroundColor }) => backgroundColor && css`
-        color: white;
-        background-color: ${makeColor(backgroundColor)};
-      `}
-    }
   `,
 }
 

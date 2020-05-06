@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'gatsby';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
 import ImageGallery from 'react-image-gallery';
