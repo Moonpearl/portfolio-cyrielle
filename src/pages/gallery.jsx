@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Container } from 'react-bootstrap';
 
 const Styles = {
-  Grid: styled.div`
+  Grid: styled.ul`
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
     gap: 2rem;
@@ -13,8 +13,20 @@ const Styles = {
   `,
 }
 
+const getArticleFromArtwork = (articles, slug) => {
+  const filteredArticles = articles.edges.filter(
+    item => item.node.artwork !== null && item.node.artwork.slug === slug
+  );
+
+  if (filteredArticles.length === 0) {
+    return null;
+  }
+
+  return filteredArticles[0].node;
+}
+
 const GalleryPage = ({ data }) => {
-  const { allDatoCmsArtwork: artworks, datoCmsPage: page } = data;
+  const { allDatoCmsArtwork: artworks, datoCmsPage: page, allDatoCmsArticle: articles } = data;
 
   const [currentPicture, setCurrentPicture] = useState(null);
 
@@ -28,12 +40,14 @@ const GalleryPage = ({ data }) => {
       <Container>
         <Styles.Grid>
           {artworks.edges.map(
-            (edge, index) =>
-              <PictureCard
-                key={index}
-                {...edge.node}
-                setCurrentPicture={setCurrentPicture}
-              />
+            ({ node }, index) =>
+              <li key={index}>
+                <PictureCard
+                  {...node}
+                  article={getArticleFromArtwork(articles, node.slug)}
+                  setCurrentPicture={setCurrentPicture}
+                />
+              </li>
           )}
         </Styles.Grid>
       </Container>
@@ -60,6 +74,7 @@ export const query = graphql`
       edges {
         node {
           name
+          slug
           descriptionNode {
             childMarkdownRemark {
               html
@@ -74,6 +89,16 @@ export const query = graphql`
             red
             green
             blue
+          }
+        }
+      }
+    }
+    allDatoCmsArticle {
+      edges {
+        node {
+          slug
+          artwork {
+            slug
           }
         }
       }
