@@ -28,7 +28,6 @@ const NavLink = ({ href, active, children }) =>
   <Link
     to={href}
     className={`nav-link ${active && 'active'}`}
-    active={active}
   >
     {children}
   </Link>

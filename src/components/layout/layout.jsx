@@ -11,8 +11,6 @@ import { useStaticQuery, graphql } from 'gatsby';
 
 import { Header, Footer } from './components';
 
-import '../../styles/reset.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 import { GlobalStyle } from '../../styles/global';
 

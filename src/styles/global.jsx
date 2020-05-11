@@ -1,4 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
+import './reset.css';
+import './imports.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css/animate.min.css';
 
 export const GlobalStyle = createGlobalStyle`

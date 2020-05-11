@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Navbar } from 'react-bootstrap';
 import styled, { css } from 'styled-components';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';

@@ -79,7 +79,7 @@ const Section = ({
 ;
 
 Section.propTypes = {
-  backgroundImage: PropTypes.string.isRequired,
+  backgroundImage: PropTypes.object.isRequired,
   backgroundColor: PropTypes.object.isRequired,
   textColor: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
