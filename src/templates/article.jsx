@@ -68,13 +68,16 @@ const ArticlePage = ({ data }) => {
 export default ArticlePage;
 
 export const query = graphql`
-  query ArticleQuery($slug: String!) {
-    datoCmsPage {
+  query ArticleQuery($slug: String!, $locale: String!) {
+    datoCmsPage(locale: { eq: $locale }) {
       articleDefaultBanner {
         url
       }
     }
-    datoCmsArticle(slug: { eq: $slug }) {
+    datoCmsArticle(
+      locale: { eq: $locale },
+      slug: { eq: $slug }
+    ) {
       title
       contentNode {
         childMarkdownRemark {

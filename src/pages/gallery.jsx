@@ -64,13 +64,16 @@ const GalleryPage = ({ data }) => {
 export default GalleryPage;
 
 export const query = graphql`
-  query GalleryQuery {
-    datoCmsPage {
+  query GalleryQuery($locale: String!) {
+    datoCmsPage(locale: {eq: $locale}) {
       galleryBanner {
         url
       }
     }
-    allDatoCmsArtwork(sort: {fields: position, order: ASC}) {
+    allDatoCmsArtwork(
+      filter: {locale: {eq: $locale}},
+      sort: {fields: position, order: ASC}
+    ) {
       edges {
         node {
           name
@@ -93,7 +96,7 @@ export const query = graphql`
         }
       }
     }
-    allDatoCmsArticle {
+    allDatoCmsArticle(filter: {locale: {eq: $locale}}) {
       edges {
         node {
           slug

@@ -42,13 +42,16 @@ const NewsPage = ({ data }) => {
 export default NewsPage;
 
 export const query = graphql`
-  query NewsQuery {
-    datoCmsPage {
+  query NewsQuery($locale: String!) {
+    datoCmsPage(locale: {eq: $locale}) {
       newsBanner {
         url
       }
     }
-    allDatoCmsArticle(sort: {fields: meta___firstPublishedAt, order: DESC}) {
+    allDatoCmsArticle(
+      filter: {locale: {eq: $locale}},
+      sort: {fields: meta___firstPublishedAt, order: DESC}
+    ) {
       edges {
         node {
           slug
