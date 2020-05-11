@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactFlipCard from 'react-card-flip';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, ButtonGroup } from 'react-bootstrap';
 import styled, { css } from 'styled-components';
 import { makeColor } from '../utils';
 import { FaRegEye } from 'react-icons/fa';
+import { MdLibraryBooks } from 'react-icons/md';
 import ScrollAnimation from 'react-animate-on-scroll';
 import MarkdownTextContainer from './markdown-text-container';
+import { Link } from 'gatsby';
 
 const Styles = {
   Card: styled(Card)`
@@ -28,6 +30,7 @@ const PictureCard = ({
   descriptionNode,
   image,
   backgroundColor,
+  article,
   setCurrentPicture,
 }) => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -67,9 +70,18 @@ const PictureCard = ({
               </Card.Text>
             </Card.Body>
             <Card.Footer>
-              <Button variant="outline-light" onClick={() => setCurrentPicture(picture)}>
-                <FaRegEye />
-              </Button>
+              <ButtonGroup>
+                <Button variant="outline-light" onClick={() => setCurrentPicture(picture)}>
+                  <FaRegEye />
+                </Button>
+                {article &&
+                  <Link to={`/news/${article.slug}`}>
+                    <Button variant="outline-light">
+                      <MdLibraryBooks /> Article
+                    </Button>
+                  </Link>
+                }
+              </ButtonGroup>
             </Card.Footer>
           </Styles.Card>
         </ReactFlipCard>
@@ -83,6 +95,7 @@ PictureCard.propTypes = {
   descriptionNode: PropTypes.object.isRequired,
   image: PropTypes.object.isRequired,
   backgroundColor: PropTypes.object.isRequired,
+  article: PropTypes.object,
   setCurrentPicture: PropTypes.func.isRequired,
 }
 
