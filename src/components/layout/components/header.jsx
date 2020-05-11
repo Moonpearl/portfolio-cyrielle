@@ -6,8 +6,10 @@ import { TransparentNavbar } from '../../../styles';
 import { Link, useStaticQuery } from 'gatsby';
 import { Location } from '@reach/router';
 import ConditionalLink from '../../conditional-link';
+import LocaleSelect from './locale-select';
 import { FaInstagram, FaDiscord, FaTwitter, FaFacebookSquare } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
+import { LocalizedLink } from '../../localization';
 
 const Styles = {
   Header: styled.header`
@@ -25,12 +27,11 @@ const NavButtons = [
 ];
 
 const NavLink = ({ href, active, children }) =>
-  <Link
-    to={href}
-    className={`nav-link ${active && 'active'}`}
-  >
-    {children}
-  </Link>
+  <LocalizedLink to={href}>
+    <div className={`nav-link ${active && 'active'}`}>
+      {children}
+    </div>
+  </LocalizedLink>
 ;
 
 const SocialLinks = () => {
@@ -84,11 +85,11 @@ const Header = ({
 }) =>
   <Styles.Header>
     <TransparentNavbar bg="dark" variant="dark" expand="md">
-      <Link to="/">
+      <LocalizedLink to="/">
         <Navbar.Brand>
           {siteTitle}
         </Navbar.Brand>
-      </Link>
+      </LocalizedLink>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto" as="ul">
@@ -105,6 +106,7 @@ const Header = ({
         </Nav>
         <SocialLinks />
       </Navbar.Collapse>
+      <LocaleSelect />
     </TransparentNavbar>
   </Styles.Header>
 ;

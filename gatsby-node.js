@@ -36,7 +36,7 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
 
   return new Promise(async (resolve, reject) => {
-    for (let locale of [defaultLocale]) {
+    for (let locale of locales) {
       for (let instance of data) {
         const { entityName, uri, template } = instance;
     
@@ -53,6 +53,7 @@ exports.createPages = ({ graphql, actions }) => {
         `);
         
         result.data[entityName].edges.map(({ node: entity }) => {
+          console.log('Creating ' + `${locale === defaultLocale ? '' : `/${locale}` }/${uri}/${entity.slug}`);
           createPage({
             path: `${locale === defaultLocale ? '' : `/${locale}` }/${uri}/${entity.slug}`,
             component: path.resolve(`./src/templates/${template}`),

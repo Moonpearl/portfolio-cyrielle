@@ -8,7 +8,7 @@ import { FaRegEye } from 'react-icons/fa';
 import { MdLibraryBooks } from 'react-icons/md';
 import ScrollAnimation from 'react-animate-on-scroll';
 import MarkdownTextContainer from './markdown-text-container';
-import { Link } from 'gatsby';
+import { LocalizedLink } from './localization';
 
 const Styles = {
   Card: styled(Card)`
@@ -75,11 +75,11 @@ const PictureCard = ({
                   <FaRegEye />
                 </Button>
                 {article &&
-                  <Link to={`/news/${article.slug}`}>
+                  <LocalizedLink to={`/news/${article.slug}`}>
                     <Button variant="outline-light">
                       <MdLibraryBooks /> Article
                     </Button>
-                  </Link>
+                  </LocalizedLink>
                 }
               </ButtonGroup>
             </Card.Footer>

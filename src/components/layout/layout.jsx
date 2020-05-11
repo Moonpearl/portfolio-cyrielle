@@ -9,7 +9,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 
-import { Header, Footer } from './components';
+import { Header, Footer, LocaleRedirect } from './components';
 
 import styled from 'styled-components';
 import { GlobalStyle } from '../../styles/global';
@@ -33,6 +33,7 @@ const Layout = ({ children }) => {
 
   return (
     <Styles.PageContainer className="bg-dark">
+      <LocaleRedirect />
       <GlobalStyle />
       <Header
         siteTitle={data.site.siteMetadata.title}
