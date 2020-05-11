@@ -28,7 +28,6 @@ export const withLocale = Component => connect(
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_LOCALE:
-      console.log('Setting locale to ' + action.value);
       return {...state, current: action.value};
     default:
       return state;

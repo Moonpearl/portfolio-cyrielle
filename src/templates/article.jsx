@@ -20,8 +20,6 @@ const ArticlePage = ({ data }) => {
 
   const [currentPicture, setCurrentPicture] = useState(null);
 
-  console.log(data);
-
   return (
     <Layout>
       <SEO title={article.title} />

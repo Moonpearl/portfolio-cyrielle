@@ -17,8 +17,6 @@ const data = [
 exports.onCreatePage = ({ page, actions }) => {
   const { createPage, deletePage } = actions;
 
-  console.log('Normal page =', page);
-  
   for (let locale of locales) {
     const localizedPage = {...page};
     if (locale === defaultLocale) {
@@ -27,7 +25,6 @@ exports.onCreatePage = ({ page, actions }) => {
       localizedPage.path = `/${locale}` + localizedPage.path;
     }
     localizedPage.context = {...localizedPage.context, locale};
-    console.log(`Page translated in ${locale} =`, localizedPage);
     createPage(localizedPage);
   }
 }
@@ -53,7 +50,6 @@ exports.createPages = ({ graphql, actions }) => {
         `);
         
         result.data[entityName].edges.map(({ node: entity }) => {
-          console.log('Creating ' + `${locale === defaultLocale ? '' : `/${locale}` }/${uri}/${entity.slug}`);
           createPage({
             path: `${locale === defaultLocale ? '' : `/${locale}` }/${uri}/${entity.slug}`,
             component: path.resolve(`./src/templates/${template}`),
