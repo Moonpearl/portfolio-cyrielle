@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 
 // Constants
 export const LOCALES = [
-  { index: 0, name: 'English', prefix: '' },
-  { index: 1, name: 'Français', prefix: 'fr' },
+  { index: 0, name: 'English', prefix: '', code: 'en' },
+  { index: 1, name: 'Français', prefix: 'fr', code: 'fr' },
 ];
 
 const initialState = {

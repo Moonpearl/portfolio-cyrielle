@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Layout, SEO, PictureCard, PictureModal, HeaderBanner } from '../components';
 import styled from 'styled-components';
 import { Container } from 'react-bootstrap';
+import { LocalizedContent } from '../components/localization';
 
 const Styles = {
   Grid: styled.ul`
@@ -33,10 +34,12 @@ const GalleryPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Gallery" />
-      <HeaderBanner
-        imageUrl={page.galleryBanner.url}
-        title="Gallery"
-      />
+      <HeaderBanner imageUrl={page.galleryBanner.url}>
+        <LocalizedContent>
+          <span locale="en">Gallery</span>
+          <span locale="fr">Galerie</span>
+        </LocalizedContent>
+      </HeaderBanner>
       <Container>
         <Styles.Grid>
           {artworks.edges.map(

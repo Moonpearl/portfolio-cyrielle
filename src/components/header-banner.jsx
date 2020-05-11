@@ -21,10 +21,10 @@ const Styles = {
   `,
 };
 
-const HeaderBanner = ({ imageUrl, title }) =>
+const HeaderBanner = ({ imageUrl, children }) =>
   <BackgroundImageContainer imageUrl={imageUrl} attachmentFixed>
     <Styles.Overlay className="bg-dark" />
-    <Styles.Header>{title}</Styles.Header>
+    <Styles.Header>{children}</Styles.Header>
   </BackgroundImageContainer>
 ;
 

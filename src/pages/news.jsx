@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 import { Layout, SEO, HeaderBanner, ArticleCard } from '../components';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
+import { LocalizedContent } from '../components/localization';
 
 const Styles = {
   Grid: styled.div`
@@ -20,10 +21,12 @@ const NewsPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="News" />
-      <HeaderBanner
-        imageUrl={page.newsBanner.url}
-        title="News"
-      />
+      <HeaderBanner imageUrl={page.newsBanner.url}>
+        <LocalizedContent>
+          <span locale="en">News</span>
+          <span locale="fr">Nouvelles</span>
+        </LocalizedContent>
+      </HeaderBanner>
       <Container>
         <Styles.Grid>
           {articles.edges.map(

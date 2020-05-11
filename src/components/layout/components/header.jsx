@@ -9,7 +9,7 @@ import ConditionalLink from '../../conditional-link';
 import LocaleSelect from './locale-select';
 import { FaInstagram, FaDiscord, FaTwitter, FaFacebookSquare } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
-import { LocalizedLink } from '../../localization';
+import { LocalizedLink, LocalizedContent } from '../../localization';
 
 const Styles = {
   Header: styled.header`
@@ -21,9 +21,9 @@ const Styles = {
 };
 
 const NavButtons = [
-  { path: '/', caption: 'Home' },
-  { path: '/news', caption: 'News' },
-  { path: '/gallery', caption: 'Gallery' },
+  { path: '/', caption: { en: 'Home', fr: 'Accueil' } },
+  { path: '/news', caption: { en: 'News', fr: 'Nouvelles' } },
+  { path: '/gallery', caption: { en: 'Gallery', fr: 'Galerie' } },
 ];
 
 const NavLink = ({ href, active, children }) =>
@@ -96,12 +96,19 @@ const Header = ({
         <Nav className="mr-auto" as="ul">
           {NavButtons.map(
             (buttonData, index) =>
-            <NavLink
-            key={index}
-            href={buttonData.path}
-            active={buttonData.path === location.pathname}
-            >
-                {buttonData.caption}
+              <NavLink
+                key={index}
+                href={buttonData.path}
+                active={buttonData.path === location.pathname}
+              >
+                <LocalizedContent>
+                  {Object.keys(buttonData.caption).map(
+                    (locale, index) =>
+                      <span key={index} locale={locale}>
+                        {buttonData.caption[locale]}
+                      </span>
+                  )}
+                </LocalizedContent>
               </NavLink>
           )}
         </Nav>
