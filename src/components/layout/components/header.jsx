@@ -90,24 +90,24 @@ const Header = ({
           {siteTitle}
         </Navbar.Brand>
       </LocalizedLink>
+      <LocaleSelect />
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto" as="ul">
           {NavButtons.map(
             (buttonData, index) =>
-              <NavLink
-                key={index}
-                href={buttonData.path}
-                active={buttonData.path === location.pathname}
-              >
+            <NavLink
+            key={index}
+            href={buttonData.path}
+            active={buttonData.path === location.pathname}
+            >
                 {buttonData.caption}
               </NavLink>
           )}
         </Nav>
         <SocialLinks />
       </Navbar.Collapse>
-      <LocaleSelect />
-    </TransparentNavbar>
+   </TransparentNavbar>
   </Styles.Header>
 ;
 

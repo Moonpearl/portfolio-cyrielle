@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form } from 'react-bootstrap';
+import { Form, DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { LOCALES, withLocale } from '../../../state/locale';
 import { navigate } from 'gatsby';
 import { Location } from '@reach/router';
@@ -10,29 +10,33 @@ const LocaleSelect = ({
   setLocale,
   location,
 }) => {
+  const handleChange = (newLocaleIndex) => () => {
+    const basePath = location.pathname.replace(new RegExp(`^/${currentLocale.prefix}`), '/');
+    const newPath = [LOCALES[newLocaleIndex].prefix, basePath].join('/');
+    setLocale(newLocaleIndex);
+    navigate(newPath);
+  }
+
   return (
-    <Form.Control
-      as="select"
-      custom
-      value={currentLocale.index}
-      onChange={event => {
-        const newLocaleIndex = event.target.value;
-        const basePath = location.pathname.replace(new RegExp(`^/${currentLocale.prefix}`), '/');
-        const newPath = [LOCALES[newLocaleIndex].prefix, basePath].join('/');
-        setLocale(newLocaleIndex);
-        navigate(newPath);
-      }}
+    <DropdownButton
+      as={ButtonGroup}
+      size="sm"
+      variant="secondary"
+      title={currentLocale.name}
+      alignRight
+      className="mr-2"
     >
       {LOCALES.map(
-        (localeData, index) =>
-          <option
-            key={index}
-            value={localeData.index}
+        locale =>
+          <Dropdown.Item
+            size="sm"
+            key={locale.index}
+            onClick={handleChange(locale.index)}
           >
-            {localeData.name}
-          </option>
+            {locale.name}
+          </Dropdown.Item>
       )}
-    </Form.Control>
+    </DropdownButton>
   );
 };
 
