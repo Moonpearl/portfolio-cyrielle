@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Navbar, Nav } from 'react-bootstrap';
 import { TransparentNavbar } from '../../../styles';
-import { Link, useStaticQuery } from 'gatsby';
+import { Link, useStaticQuery, graphql } from 'gatsby';
 import { Location } from '@reach/router';
 import ConditionalLink from '../../conditional-link';
 import LocaleSelect from './locale-select';

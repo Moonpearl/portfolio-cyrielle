@@ -3,6 +3,7 @@ import { Layout, SEO, PictureCard, PictureModal, HeaderBanner } from '../compone
 import styled from 'styled-components';
 import { Container } from 'react-bootstrap';
 import { LocalizedContent } from '../components/localization';
+import { graphql } from 'gatsby';
 
 const Styles = {
   Grid: styled.ul`

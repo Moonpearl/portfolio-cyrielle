@@ -5,6 +5,7 @@ import ImageGallery from 'react-image-gallery';
 
 import { Layout, SEO, HeaderBanner, MarkdownTextContainer, PictureCard, PictureModal } from '../components';
 import { MIN_WIDTH } from '../styles/variables';
+import { graphql } from 'gatsby';
 
 const Styles = {
   PictureContainer: styled.div`
