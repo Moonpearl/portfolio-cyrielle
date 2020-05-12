@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { MarkdownTextContainer } from '.';
 import { BackgroundImageContainer } from '../styles';
-import { Container } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import styled, { css } from 'styled-components';
 import { MIN_WIDTH } from '../styles/variables';
 import { makeColor } from '../utils';
 import ScrollAnimation from 'react-animate-on-scroll';
+import { LocalizedContent, LocalizedLink } from './localization';
+import { FaAngleDoubleRight } from 'react-icons/fa';
 
 const Styles = {
   TextContainer: styled.div`
@@ -46,6 +48,10 @@ const Styles = {
       ;
     }
   `,
+  ButtonContainer: styled.div`
+    display: flex;
+    justify-content: center;
+  `,
 };
 
 const Section = ({
@@ -54,7 +60,8 @@ const Section = ({
   textColor,
   title,
   descriptionNode,
-  inverted
+  tag,
+  inverted,
 }) =>
   <Styles.BackgroundImageContainer
     imageUrl={backgroundImage.url}
@@ -71,6 +78,19 @@ const Section = ({
           <Styles.TextContainer textColor={makeColor(textColor)}>
             <h3>{title}</h3>
             <MarkdownTextContainer textNode={descriptionNode} />
+            {tag &&
+              <Styles.ButtonContainer>
+                <LocalizedLink to={`/tags/${tag.slug}`}>
+                  <Button variant="light" center>
+                    <LocalizedContent>
+                      <span locale="en">Find out more </span>
+                      <span locale="fr">Découvrir </span>
+                      <FaAngleDoubleRight />
+                    </LocalizedContent>
+                  </Button>
+                </LocalizedLink>
+              </Styles.ButtonContainer>
+            }
           </Styles.TextContainer>
         </Styles.TextAlignContainer>
       </ScrollAnimation>
