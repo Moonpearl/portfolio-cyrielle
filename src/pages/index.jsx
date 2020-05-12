@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, SEO, MarkdownTextContainer, Section, BackgroundCarousel } from '../components';
 import { Jumbotron, Container } from 'react-bootstrap';
 import styled from 'styled-components';
+import { graphql } from 'gatsby';
 
 const Styles = {
   TransparentJumbotron: styled(Jumbotron)`
@@ -32,8 +33,8 @@ const IndexPage = ({ data }) => {
 export default IndexPage;
 
 export const query = graphql`
-  query HomeQuery {
-    datoCmsPage {
+  query HomeQuery($locale: String!) {
+    datoCmsPage(locale: { eq: $locale }) {
       homeCarousel {
         url
       }

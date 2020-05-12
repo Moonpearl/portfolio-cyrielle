@@ -5,6 +5,8 @@ import ImageGallery from 'react-image-gallery';
 
 import { Layout, SEO, HeaderBanner, MarkdownTextContainer, PictureCard, PictureModal } from '../components';
 import { MIN_WIDTH } from '../styles/variables';
+import { graphql } from 'gatsby';
+import { LocalizedContent } from '../components/localization';
 
 const Styles = {
   PictureContainer: styled.div`
@@ -20,15 +22,12 @@ const ArticlePage = ({ data }) => {
 
   const [currentPicture, setCurrentPicture] = useState(null);
 
-  console.log(data);
-
   return (
     <Layout>
       <SEO title={article.title} />
-      <HeaderBanner
-        imageUrl={article.artwork ? article.artwork.image.fluid.src : page.articleDefaultBanner.url}
-        title={article.title}
-      />
+      <HeaderBanner imageUrl={article.artwork ? article.artwork.image.fluid.src : page.articleDefaultBanner.url}>
+        {article.title}
+      </HeaderBanner>
       <Container>
         { article.artwork &&
           <Styles.PictureContainer>
@@ -41,7 +40,10 @@ const ArticlePage = ({ data }) => {
         <hr />
         <MarkdownTextContainer textNode={article.contentNode} />
         <small className="text-muted">
-          Published on {new Date(article.meta.firstPublishedAt).toLocaleString('en-EN')} 
+          <LocalizedContent>
+            <span locale="en">Published on {new Date(article.meta.firstPublishedAt).toLocaleString('en-EN')}</span>
+            <span locale="fr">Publié le {new Date(article.meta.firstPublishedAt).toLocaleString('fr-FR')}</span>
+          </LocalizedContent>
         </small>
         <hr />
         {article.gallery.length > 0 &&
@@ -68,13 +70,16 @@ const ArticlePage = ({ data }) => {
 export default ArticlePage;
 
 export const query = graphql`
-  query ArticleQuery($slug: String!) {
-    datoCmsPage {
+  query ArticleQuery($slug: String!, $locale: String!) {
+    datoCmsPage(locale: { eq: $locale }) {
       articleDefaultBanner {
         url
       }
     }
-    datoCmsArticle(slug: { eq: $slug }) {
+    datoCmsArticle(
+      locale: { eq: $locale },
+      slug: { eq: $slug }
+    ) {
       title
       contentNode {
         childMarkdownRemark {

@@ -4,9 +4,9 @@ import ScrollAnimation from 'react-animate-on-scroll';
 import ReactCardFlip from 'react-card-flip';
 import { Card, Button, Badge } from 'react-bootstrap';
 import MarkdownTextContainer from './markdown-text-container';
-import { Link } from 'gatsby';
 import styled, { css } from 'styled-components';
 import { makeColor } from '../utils';
+import { LocalizedLink, LocalizedContent } from './localization';
 
 const Styles = {
   Card: styled(Card)`
@@ -35,16 +35,19 @@ const ArticlePreview = ({
         {title}
       </Card.Title>
       <small className="text-muted">
-        Published on {new Date(meta.firstPublishedAt).toLocaleString('en-EN')} 
+        <LocalizedContent>
+          <span locale="en">Published on {new Date(meta.firstPublishedAt).toLocaleString('en-EN')}</span>
+          <span locale="fr">Publié le {new Date(meta.firstPublishedAt).toLocaleString('fr-FR')}</span>
+        </LocalizedContent>
       </small>
       <MarkdownTextContainer textNode={contentNode} truncate />
     </Card.Body>
     <Card.Footer>
-      <Link to={`/news/${slug}`}>
+      <LocalizedLink to={`/news/${slug}`}>
         <Button>
           Read more
         </Button>
-      </Link>
+      </LocalizedLink>
     </Card.Footer>
   </Styles.Card>
 ;
