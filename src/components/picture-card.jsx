@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactFlipCard from 'react-card-flip';
-import { Card, Button, ButtonGroup } from 'react-bootstrap';
+import { Card, Button, ButtonGroup, Badge } from 'react-bootstrap';
 import styled, { css } from 'styled-components';
 import { makeColor } from '../utils';
 import { FaRegEye } from 'react-icons/fa';
@@ -32,6 +32,7 @@ const PictureCard = ({
   backgroundColor,
   article,
   setCurrentPicture,
+  tags,
 }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -40,6 +41,7 @@ const PictureCard = ({
     descriptionNode,
     image,
     backgroundColor,
+    tags,
   };
 
   return (
@@ -61,8 +63,22 @@ const PictureCard = ({
             className="text-center"
             backgroundColor={backgroundColor}
           >
-            <Card.Body>
+            <Card.Header>
               <Card.Title as="h3">{name}</Card.Title>
+              <Card.Text as="ul">
+                {tags.map(
+                  (tag, index) =>
+                    <li key={index} className="d-inline ml-1 mr-1">
+                      <LocalizedLink to={`/tags/${tag.slug}`}>
+                        <Badge variant="light">
+                          {tag.name}
+                        </Badge>
+                      </LocalizedLink>
+                    </li>
+                )}
+              </Card.Text>
+            </Card.Header>
+            <Card.Body>
               <Card.Text>
                 <small>
                   <MarkdownTextContainer textNode={descriptionNode} truncate />
@@ -101,6 +117,7 @@ PictureCard.propTypes = {
   backgroundColor: PropTypes.object.isRequired,
   article: PropTypes.object,
   setCurrentPicture: PropTypes.func.isRequired,
+  tag: PropTypes.array.isRequired,
 }
 
 export default PictureCard;
