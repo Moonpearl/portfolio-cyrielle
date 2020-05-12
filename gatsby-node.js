@@ -12,6 +12,7 @@ const { createFilePath } = require(`gatsby-source-filesystem`);
 
 const data = [
   { entityName: 'allDatoCmsArticle', uri: 'news', template: 'article.jsx' },
+  { entityName: 'allDatoCmsTag', uri: 'tags', template: 'tag.jsx' },
 ];
 
 exports.onCreatePage = ({ page, actions }) => {

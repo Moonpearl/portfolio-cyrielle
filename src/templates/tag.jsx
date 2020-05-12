@@ -1,19 +1,20 @@
 import React from 'react';
-import { Layout, SEO, HeaderBanner, Gallery } from '../components';
-import { LocalizedContent } from '../components/localization';
 import { graphql } from 'gatsby';
+import { Layout, SEO, HeaderBanner, Gallery } from '../components';
 
-const GalleryPage = ({ data }) => {
-  const { allDatoCmsArtwork: artworks, datoCmsPage: page, allDatoCmsArticle: articles } = data;
+const TagPage = ({ data }) => {
+  const {
+    allDatoCmsArtwork: artworks,
+    allDatoCmsArticle: articles,
+    datoCmsPage: page,
+    datoCmsTag: tag,
+  } = data;
 
   return (
     <Layout>
-      <SEO title="Gallery" />
-      <HeaderBanner imageUrl={page.galleryBanner.url}>
-        <LocalizedContent>
-          <span locale="en">Gallery</span>
-          <span locale="fr">Galerie</span>
-        </LocalizedContent>
+      <SEO title={tag.name} />
+      <HeaderBanner imageUrl={tag.banner ? tag.banner.fluid.src : page.tagDefaultBanner.url}>
+        {tag.name}
       </HeaderBanner>
       <Gallery
         articles={articles}
@@ -23,17 +24,31 @@ const GalleryPage = ({ data }) => {
   );
 }
 
-export default GalleryPage;
+export default TagPage;
 
 export const query = graphql`
-  query GalleryQuery($locale: String!) {
+  query TagQuery($slug: String!, $locale: String!) {
     datoCmsPage(locale: {eq: $locale}) {
-      galleryBanner {
+      tagDefaultBanner {
         url
       }
     }
+    datoCmsTag(
+      locale: {eq: $locale},
+      slug: {eq: $slug}
+    ) {
+      banner {
+        fluid {
+          src
+        }
+      }
+      name
+    }
     allDatoCmsArtwork(
-      filter: {locale: {eq: $locale}},
+      filter: {
+        locale: {eq: $locale},
+        tags: {elemMatch: {slug: {eq: $slug}}}
+      },
       sort: {fields: position, order: ASC}
     ) {
       edges {
