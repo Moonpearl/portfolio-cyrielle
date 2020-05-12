@@ -70,6 +70,10 @@ export const query = graphql`
             green
             blue
           }
+          tags {
+            name
+            slug
+          }
         }
       }
     }
