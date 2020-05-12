@@ -45,7 +45,10 @@ const ArticlePreview = ({
     <Card.Footer>
       <LocalizedLink to={`/news/${slug}`}>
         <Button>
-          Read more
+          <LocalizedContent>
+            <span locale="en">Read more</span>
+            <span locale="fr">Lire plus</span>
+          </LocalizedContent>
         </Button>
       </LocalizedLink>
     </Card.Footer>
