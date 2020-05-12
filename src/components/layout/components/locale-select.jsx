@@ -1,21 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Form, DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
+import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { LOCALES, withLocale } from '../../../state/locale';
-import { navigate } from 'gatsby';
 import { Location } from '@reach/router';
 
 const LocaleSelect = ({
   currentLocale,
   setLocale,
+  checkLocale,
   location,
 }) => {
-  const handleChange = (newLocaleIndex) => () => {
-    const basePath = location.pathname.replace(new RegExp(`^/${currentLocale.prefix}`), '/');
-    const newPath = [LOCALES[newLocaleIndex].prefix, basePath].join('/');
-    setLocale(newLocaleIndex);
-    navigate(newPath);
-  }
+  useEffect(() => {
+    checkLocale(location.pathname);
+  });
 
   return (
     <DropdownButton
@@ -31,7 +28,7 @@ const LocaleSelect = ({
           <Dropdown.Item
             size="sm"
             key={locale.index}
-            onClick={handleChange(locale.index)}
+            onClick={() => setLocale(locale.index, location.pathname)}
           >
             {locale.name}
           </Dropdown.Item>

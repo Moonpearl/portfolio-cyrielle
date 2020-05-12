@@ -33,7 +33,6 @@ const Layout = ({ children }) => {
 
   return (
     <Styles.PageContainer className="bg-dark">
-      <LocaleRedirect />
       <GlobalStyle />
       <Header
         siteTitle={data.site.siteMetadata.title}

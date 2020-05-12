@@ -8,11 +8,16 @@ const LocalizedLink = ({
   to, 
   children
 }) => {
-  const path = [
-    '',
-    currentLocale.prefix,
-    ...to.split('/').filter(item => item !== '')
-  ].join('/');
+  let path;
+  if (currentLocale.index !== 0) {
+    path = [
+      '',
+      currentLocale.prefix,
+      ...to.split('/').filter(item => item !== '')
+    ].join('/');
+  } else {
+    path = to;
+  }
 
   return (
     <Link to={path}>
