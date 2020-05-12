@@ -9,31 +9,46 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
+import { withLocale } from "../state/locale"
 
-function SEO({ description, lang, meta, title }) {
+function SEO({ description, meta, title, currentLocale }) {
   const { site } = useStaticQuery(
     graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
+      query SeoQuery {
+        site: datoCmsSite {
+          globalSeo {
+            siteName
+            titleSuffix
+            twitterAccount
+            facebookPageUrl
+            fallbackSeo {
+              description
+              title
+              twitterCard
+              image {
+                fluid {
+                  src
+                }
+              }
+            }
           }
         }
       }
     `
   )
+  // console.log(data);
+  // const { site } = data;
 
-  const metaDescription = description || site.siteMetadata.description
+  const metaTitle = title || site.globalSeo.fallbackSeo.title
+  const metaDescription = description || site.globalSeo.fallbackSeo.description
 
   return (
     <Helmet
       htmlAttributes={{
-        lang,
+        lang: currentLocale.code,
       }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      title={metaTitle}
+      titleTemplate={`%s | ${site.globalSeo.siteName}`}
       meta={[
         {
           name: `description`,
@@ -41,7 +56,7 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           property: `og:title`,
-          content: title,
+          content: metaTitle,
         },
         {
           property: `og:description`,
@@ -53,15 +68,15 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           name: `twitter:card`,
-          content: `summary`,
+          content: site.globalSeo.fallbackSeo.twitterCard,
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata.author,
+          content: site.globalSeo.twitterAccount,
         },
         {
           name: `twitter:title`,
-          content: title,
+          content: metaTitle,
         },
         {
           name: `twitter:description`,
@@ -73,16 +88,14 @@ function SEO({ description, lang, meta, title }) {
 }
 
 SEO.defaultProps = {
-  lang: `en`,
   meta: [],
   description: ``,
 }
 
 SEO.propTypes = {
   description: PropTypes.string,
-  lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 }
 
-export default SEO
+export default withLocale(SEO);

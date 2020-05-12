@@ -1,33 +1,71 @@
 import React from 'react';
-import { Link } from 'gatsby';
-import { Layout, SEO, Image } from '../components';
-import { Button } from 'react-bootstrap';
-import { FaAngleRight } from 'react-icons/fa';
+import { Layout, SEO, MarkdownTextContainer, Section, BackgroundCarousel } from '../components';
+import { Jumbotron, Container } from 'react-bootstrap';
+import styled from 'styled-components';
+import { graphql } from 'gatsby';
 
-const IndexPage = ({ data }) => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Home page</h1>
-    <div>
-      <Image picture={data.bannerImage} />
-    </div>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur reiciendis possimus cum inventore porro mollitia quo, natus odio tempora ducimus voluptates vitae impedit consequatur rem perspiciatis! Nemo dolorum a repellat neque illum voluptatibus incidunt alias nisi beatae! Magnam in pariatur ducimus odio non, quam sequi alias, repudiandae ad optio facilis exercitationem provident aspernatur nostrum! Aperiam corrupti voluptas expedita error quas velit aliquam consequatur, repellendus voluptatibus labore molestiae, perferendis, debitis officiis cumque inventore beatae. Quis facere laudantium minima repudiandae sint deserunt esse est nobis nisi, recusandae autem tenetur? Soluta esse sint, perferendis atque saepe voluptatem magnam? Voluptas inventore ducimus soluta sequi.</p>
-    <Link to="/pages/2">
-      <Button>
-        Go to page 2 <FaAngleRight />
-      </Button>
-    </Link>
-  </Layout>
-)
+const Styles = {
+  TransparentJumbotron: styled(Jumbotron)`
+    opacity: .9;
+  `,
+}
+
+const IndexPage = ({ data }) => {
+  const { datoCmsPage: page } = data;
+
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <BackgroundCarousel pictures={page.homeCarousel.map(picture => picture.url)}>
+        <Container>
+          <Styles.TransparentJumbotron>
+            <MarkdownTextContainer textNode={page.homeDescriptionNode} />
+          </Styles.TransparentJumbotron>
+        </Container>
+      </BackgroundCarousel>
+      {page.homeSections.map(
+        (sectionNode, index) => <Section key={index} {...sectionNode} inverted={index % 2 === 0} />
+      )}
+    </Layout>
+  );
+}
 
 export default IndexPage;
 
 export const query = graphql`
-  query {
-    bannerImage: file(relativePath: { eq: "banner.jpg" }) {
-      childImageSharp {
-        fluid(maxWidth: 600, quality: 100) {
-          ...GatsbyImageSharpFluid
+  query HomeQuery($locale: String!) {
+    datoCmsPage(locale: { eq: $locale }) {
+      homeCarousel {
+        url
+      }
+      homeSections {
+        title
+        slug
+        backgroundColor {
+          red
+          blue
+          green
+        }
+        backgroundImage {
+          url
+        }
+        textColor {
+          blue
+          green
+          red
+        }
+        descriptionNode {
+          childMarkdownRemark {
+            html
+          }
+        }
+        tag {
+          slug
+        }
+      }
+      homeDescriptionNode {
+        childMarkdownRemark {
+          html
         }
       }
     }

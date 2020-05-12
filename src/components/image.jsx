@@ -27,8 +27,6 @@ const Image = ({ picture }) => {
     }
   `);
 
-  console.log(picture);
-
   const sources = [
     data.placeholderImage.childImageSharp.fluid,
   ];
