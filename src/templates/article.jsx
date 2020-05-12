@@ -24,10 +24,9 @@ const ArticlePage = ({ data }) => {
   return (
     <Layout>
       <SEO title={article.title} />
-      <HeaderBanner
-        imageUrl={article.artwork ? article.artwork.image.fluid.src : page.articleDefaultBanner.url}
-        title={article.title}
-      />
+      <HeaderBanner imageUrl={article.artwork ? article.artwork.image.fluid.src : page.articleDefaultBanner.url}>
+        {article.title}
+      </HeaderBanner>
       <Container>
         { article.artwork &&
           <Styles.PictureContainer>
