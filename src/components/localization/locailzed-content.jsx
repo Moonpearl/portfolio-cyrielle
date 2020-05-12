@@ -9,7 +9,7 @@ const LocalizedContent = ({
 }) =>
   <Component>
     {Children.toArray(children).filter(
-      ({ props }) => props.locale === currentLocale.code || props.locale === null
+      ({ props }) => typeof props.locale === 'undefined' || props.locale === currentLocale.code
     )}
   </Component>
 ;

@@ -6,6 +6,7 @@ import ImageGallery from 'react-image-gallery';
 import { Layout, SEO, HeaderBanner, MarkdownTextContainer, PictureCard, PictureModal } from '../components';
 import { MIN_WIDTH } from '../styles/variables';
 import { graphql } from 'gatsby';
+import { LocalizedContent } from '../components/localization';
 
 const Styles = {
   PictureContainer: styled.div`
@@ -39,7 +40,10 @@ const ArticlePage = ({ data }) => {
         <hr />
         <MarkdownTextContainer textNode={article.contentNode} />
         <small className="text-muted">
-          Published on {new Date(article.meta.firstPublishedAt).toLocaleString('en-EN')} 
+          <LocalizedContent>
+            <span locale="en">Published on {new Date(article.meta.firstPublishedAt).toLocaleString('en-EN')}</span>
+            <span locale="fr">Publié le {new Date(article.meta.firstPublishedAt).toLocaleString('fr-FR')}</span>
+          </LocalizedContent>
         </small>
         <hr />
         {article.gallery.length > 0 &&

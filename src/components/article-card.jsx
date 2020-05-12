@@ -6,7 +6,7 @@ import { Card, Button, Badge } from 'react-bootstrap';
 import MarkdownTextContainer from './markdown-text-container';
 import styled, { css } from 'styled-components';
 import { makeColor } from '../utils';
-import { LocalizedLink } from './localization';
+import { LocalizedLink, LocalizedContent } from './localization';
 
 const Styles = {
   Card: styled(Card)`
@@ -35,7 +35,10 @@ const ArticlePreview = ({
         {title}
       </Card.Title>
       <small className="text-muted">
-        Published on {new Date(meta.firstPublishedAt).toLocaleString('en-EN')} 
+        <LocalizedContent>
+          <span locale="en">Published on {new Date(meta.firstPublishedAt).toLocaleString('en-EN')}</span>
+          <span locale="fr">Publié le {new Date(meta.firstPublishedAt).toLocaleString('fr-FR')}</span>
+        </LocalizedContent>
       </small>
       <MarkdownTextContainer textNode={contentNode} truncate />
     </Card.Body>
